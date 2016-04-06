@@ -1,0 +1,71 @@
+<!--code by  Edward-->
+<!DOCTYPE html>
+<html> 
+<head>
+<title>EdwardQ</title>
+<meta charset="utf-8" />
+<meta name="description" content="网页描述"/>
+<meta name="Keywords" content="关键字"/>
+<style>
+	@keyframes info{
+		from{ width:44px; }
+		to{ width:600px; }	
+	}
+	@keyframes test{
+		form{ top:1000px; }
+		to{ top:0; }	
+	}
+	*{ margin:0; padding:0; }
+	.fl{ float:left; display:inline; }
+	.fr{ float:right; display:inline; }
+	.clearFix:after{ content:''; display:block; clear:both; }
+	html{ width:100%; height:100%; }
+	body{ width:100%; height:100%; background:url(../images/bg.png) no-repeat 100% 100%;  font-family:'Microsoft Yahei';  }
+	.wrapper{ width:100%; padding-top:30px; }
+	.box{ width:600px; height:150px; margin:0 auto; border:5px solid #ccc; background:#fff; box-shadow:0 0 3px 5px #ccc; }
+	.contain{ width:44px; height:150px; overflow:hidden; }
+	canvas{ background:#fff;}
+	
+	.introdution{ width:560px; margin:50px auto; padding:20px; background:#fff; border-radius:10px; position:relative; top:1000px; animation:test .8s ease-out .5s both;}
+	
+	.introdution h2{ font-size:18px; line-height:20px; border-left:3px solid #0C0; margin-top:10px; padding-left:10px; }
+	.introdution p{ padding:5px 10px ; font-size:16px; margin-top:5px; border-bottom:1px dashed #ccc; }
+	.guide i{ background:url(images/icon_keys.gif) no-repeat; float:left; margin:0px 5px; }
+	.guide span{ float:left; display:inline;  margin-right:20px; }
+	.guide .click{ width:20px; height:25px; background-position:0 -105px; }
+	.guide .spacing{ width:77px; height:22px; background-position:0 -332px; }
+	.guide .up{ width:24px; height:22px; background-position:0 -428px; }
+	.guide .down{ width:24px; height:22px; background-position:0 -460px;  }
+</style>
+<script src="../js/dino.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="box">
+        <div class="contain">
+            <canvas id="c1" width=600 height=150></canvas>
+        </div>
+    </div>
+    </div>
+    <div class="introdution">
+    	<h2>操作指南：</h2>
+        <p class="guide clearFix">
+            <i class="spacing"></i> <i class="up"></i><span>开始/跳跃</span>
+        	<i class="click"></i><span> <i class="spacing"></i> <i class="up"></i>重新开始</span>
+           	<i class="down"></i><span>下蹲</span>
+        </p>
+        <h2>游戏目标：</h2>
+        <p class="">躲避道路中障碍物</p>
+        <h2>实现原理：</h2>
+        <p class="">原生Js面向对象编程+H5canvas</p>
+        <h2>兼容浏览器：</h2>
+        <p class="">
+        	IE:	9+&nbsp;
+            FireFox	√&nbsp;
+            safari	√&nbsp;
+            chrome	√&nbsp;
+            opera	√
+        </p>
+    </div>
+</body>
+</html>

@@ -2,322 +2,225 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>无标题文档</title>
-<style>
-	*{ margin:0; padding:0; }
-	body{ background:#ccc; text-align:center; }
-	canvas{ background:url(img/game_bg_2_hd.jpg) no-repeat; }
-</style>
+<title>EdwardQ</title>
+<link rel="stylesheet" href="css/common.css" />
+<link rel="stylesheet" href="css/pc.css" media="screen and (min-width:1201px)" />
+<link rel="stylesheet" href="css/pad.css" media="screen and (min-width:700px) and (max-width:1200px)" />
+<link rel="stylesheet" href="css/phone.css" media="screen and (max-width:700px)" />
 <script src="js/common.js"></script>
+<script src="js/startMove.js"></script>
+<script src="js/fish.js"></script>
 <script src="js/index.js"></script>
-<script>
-	document.addEventListener('DOMContentLoaded',function(){
-		var oC=document.querySelector('canvas');
-		var gd=oC.getContext('2d');
-		
-		loadImages({
-			'bottom':'img/bottom.png',
-			'cannon1':'img/cannon1.png',
-			'cannon2':'img/cannon2.png',
-			'cannon3':'img/cannon3.png',
-			'cannon4':'img/cannon4.png',
-			'cannon5':'img/cannon5.png',
-			'cannon6':'img/cannon6.png',
-			'cannon7':'img/cannon7.png',
-			'bullet':'img/bullet.png',
-			'fish1':'img/fish1.png',
-			'fish2':'img/fish2.png',
-			'fish3':'img/fish3.png',
-			'fish4':'img/fish4.png',
-			'fish5':'img/fish5.png',
-			'shark1':'img/shark1.png',
-			'shark2':'img/shark2.png',	
-			'web':'img/web.png',
-			'coin1':'img/coin1.png',
-			'coin2':'img/coin2.png',
-			'number_black':'img/number_black.png',
-			'coinText':'img/coinText.png',
-		},function(result){
-			var bottom=new Sprite(result.bottom);
-			bottom.w=765;
-			bottom.h=71;
-			bottom.x=oC.width/2-10;
-			bottom.y=oC.height-36;
-			bottom.draw(gd);
-			
-			
-			var iNow=3;
-			var cannon=new Cannon(result,iNow)
-			cannon.x=oC.width/2+30;
-			cannon.y=bottom.y;
-			//btn
-			var add=new Btn(result,1);
-			var minu=new Btn(result,0);
-			minu.x=oC.width/2-10;
-			minu.y=oC.height-14;
-			add.x=oC.width/2+70;
-			add.y=oC.height-14;
-			
-			//分数
-			var sScore=localStorage.score||toSix(100);
-			var aScore=[];
-			for(var i=0;i<6;i++){
-				var score=new Score(result,i);
-				score.x=oC.width/2-score._dis[i];
-				score.y=oC.height-15;
-				aScore.push(score);	
-			}
-			//bullet
-			var aBullet=[];
-			var aWeb=[];
-			var aCoin=[];
-			var aCText=[];
-			var aDFish=[];
-			var aFish=[];
-			//产鱼
-			setInterval(function(){
-				var fish=new Fish(result,rnd(1,6));
-				if(rnd(0,2)){
-					fish.rotate=rnd(30,130);
-					fish.x=-50;	
-				}else{
-					fish.rotate=rnd(-130,-30);
-					fish.x=oC.width+50;		
-				}
-				fish.y=rnd(0,oC.height);
-				aFish.push(fish);
-				
-				//清除网
-				aWeb.shift();
-				for(var i=0;i<aDShark.length;i++){
-					aDShark[i].die();	
-				}	
-			},240);
-			
-			var aShark=[];
-			var aDShark=[];
-			setInterval(function(){
-				var shark=new Fish(result,rnd(6,8));
-				shark.x=-300;
-				shark.y=oC.height/2;
-				aShark.push(shark);	
-			},20000);
-			
-			//主定时器
-			setInterval(function(){
-				gd.clearRect(0,0,oC.width,oC.height);
-				for(var i=0;i<aShark.length;i++){
-					aShark[i].draw(gd);
-					aShark[i].move();	
-				}
-				for(var i=0;i<aDShark.length;i++){
-					aDShark[i].draw(gd);	
-				}
-				
-				for(var i=0;i<aFish.length;i++){
-					aFish[i].draw(gd);
-					aFish[i].move();	
-					if(aFish[i].x<-50||aFish[i].x>oC.width+50||aFish[i].y<-50||aFish[i].y>oC.height+50){
-						aFish.splice(i,1);
-						i--;	
-					}
-				}
-				for(var i=0;i<aDFish.length;i++){
-					aDFish[i].draw(gd);
-				}
-				
-				//子弹
-				for(var i=0;i<aBullet.length;i++){
-					aBullet[i].draw(gd);
-					aBullet[i].move();	
-					//清除子弹
-					if(aBullet[i].x<-50||aBullet[i].x>oC.width+50||aBullet[i].y<-50){
-						aBullet.splice(i,1);
-						i--;	
-					}
-				}
-				
-				
-				//web
-				for(var i=0;i<aWeb.length;i++){
-					aWeb[i].draw(gd);
-					aWeb[i].shake();	
-				}
-				for(var i=0;i<aCoin.length;i++){
-					aCoin[i].draw(gd);
-					aCoin[i].turn();
-					aCoin[i].move();
-					if(aCoin[i].x<-50||aCoin[i].y>oC.height+50){
-						aCoin.splice(i,1);
-						i--;	
-					}	
-				}
-				for(var i=0;i<aCText.length;i++){
-					aCText[i].hide();
-					if(aCText[i].hidey>13){
-						aCText[i].draw(gd);	
-						if(aCText[i].hide()){
-							aCText.splice(i,1);
-							i--;	
-						}	
-					}
-				}
-				bottom.draw(gd);
-				add.draw(gd);
-				minu.draw(gd);
-				if(cannon){
-					cannon.draw(gd);
-				}
-				//score
-				for(var i=0;i<aScore.length;i++){
-					aScore[i].draw(gd);
-					aScore[i].slide(sScore.charAt(i));
-				}
-				for(var i=0;i<aBullet.length;i++){
-					for(var j=0;j<aFish.length;j++){
-						if(aBullet[i]&&aFish[j]){
-							if(aBullet[i].collTest(aFish[j])){
-								var web=new Web(result,cannon.type);
-								web.x=aBullet[i].x;
-								web.y=aBullet[i].y;
-								aWeb.push(web);
-								aFish[j].blood-=aBullet[i].hurt;
-								aBullet.splice(i,1);
-								i--;
-								if(aFish[j].blood<0){
-									var s=aFish[j].score;
-									sScore=toSix(parseInt(sScore)+s);
-									localStorage.score=sScore;
-									var coin=new Coin(result,aFish[j].type);
-									coin.x=aFish[j].x;
-									coin.y=aFish[j].y;
-									var a=coin.x-(bottom.x-250);
-									var b=oC.height-coin.y;
-									coin.back_dir=a2d(Math.atan2(b,a))-90;
-									aCoin.push(coin);
-									
-									var coinText=new CoinText(result,10);
-									coinText.x=aFish[j].x-36;
-									coinText.y=aFish[j].y;
-									aCText.push(coinText);
-									for(var x=0;x<(''+s).length;x++){
-										var coinText=new CoinText(result,parseInt((''+s).charAt(x)));
-										coinText.x=aFish[j].x+x*36;
-										coinText.y=aFish[j].y;
-										aCText.push(coinText);	
-									}
-									aDFish.push(aFish[j]);
-									aFish.splice(j,1);
-									j--;
-								}	
-							}
-								
-						}	
-					}
-					for(var k=0;k<aShark.length;k++){
-						if(aBullet[i]&&aShark[k]){
-							if(aShark[k].collTest(aBullet[i])){
-								var web=new Web(result,cannon.type);
-								web.x=aBullet[i].x;
-								web.y=aBullet[i].y;
-								aWeb.push(web);
-								aShark[k].blood-=aBullet[i].hurt;
-								aBullet.splice(i,1);
-								i--;
-								if(aShark[k].blood<=0){
-									var s=aShark[k].score;
-									sScore=toSix(parseInt(sScore)+s);
-									localStorage.score=sScore;
-									for(var l=0;l<40;l++){
-										var coin=new Coin(result,aShark[k].type);
-										coin.x=aShark[k].x+(l-20)*10;
-										coin.y=aShark[k].y+l%2*25;
-										var a=coin.x-(bottom.x-250);
-										var b=oC.height-coin.y;
-										coin.back_dir=a2d(Math.atan2(b,a))-90;
-										coin.speed=5;
-										aCoin.push(coin);	
-									}
-									var coinText=new CoinText(result,10);
-									coinText.x=aShark[k].x-36;
-									coinText.y=aShark[k].y;
-									aCText.push(coinText);
-									for(var x=0;x<(''+s).length;x++){
-										var coinText=new CoinText(result,parseInt((''+s).charAt(x)));
-										coinText.x=aShark[k].x+x*36;
-										coinText.y=aShark[k].y;
-										aCText.push(coinText);	
-									}
-									aDShark.push(aShark[k]);
-									aShark.splice(k,1);
-									k--;
-								}
-							}	
-						}	
-					}	
-				}
-				while(aWeb.length>8){
-					aWeb.splice(aWeb.length-1,1);	
-				}
-			},30);
-			
-			setInterval(function(){
-				for(var i=0;i<aFish.length;i++){
-					aFish[i].swimming();	
-				}	
-				
-				for(var i=0;i<aShark.length;i++){
-					aShark[i].swimming();	
-				}
-				for(var i=0;i<aDFish.length;i++){
-					if(aDFish[i].die()){
-						aDFish.splice(i,1);
-						i--;
-					}
-				}
-			},120);
-			
-			oC.onmousemove=function(ev){
-				if(ev.pageY>bottom.y)return;
-				var a=ev.pageX-oC.offsetLeft-(oC.width/2+30);
-				var b=bottom.y+oC.offsetTop-ev.pageY;
-				cannon.rotate=a2d(Math.atan2(a,b));
-			};
-			
-			oC.onclick=function(ev){
-				var pX=ev.pageX-oC.offsetLeft;
-				var pY=ev.pageY-oC.offsetTop;
-				if(pY<bottom.y){
-					var bullet=new Bullet(result,cannon.type);
-					bullet.rotate=cannon.rotate;
-					bullet.x=cannon.x+Math.sin(d2a(cannon.rotate))*(45+cannon.type*3);
-					bullet.y=cannon.y-Math.cos(d2a(cannon.rotate))*(45+cannon.type*3);
-					aBullet.push(bullet);
-				}else{
-					var rotate=cannon.rotate;
-					if(pX>oC.width/2-28&&pX<oC.width/2+8&&pY<oC.height&&pY>oC.height-28){
-						iNow--;
-						iNow<1&&(iNow=7);
-						cannon=new Cannon(result,iNow)
-						cannon.x=oC.width/2+30;
-						cannon.y=bottom.y;
-						cannon.rotate=rotate;
-					}else if(pX>oC.width/2+52&&pX<oC.width/2+88&&pY<oC.height&&pY>oC.height-28){
-						iNow++;
-						iNow>7&&(iNow=1);
-						cannon=new Cannon(result,iNow);
-						cannon.x=oC.width/2+30;
-						cannon.y=bottom.y;
-						cannon.rotate=rotate;
-					}
-				};
-			};
-		});	
-	},false);
-</script>
 </head>
 
 <body>
-<canvas width=800 height=600></canvas>
+<div id="loading" class="loading">
+    <canvas id="c1" class="c1"></canvas>
+    <div id="mask" class="mask"></div>
+</div>
+<script src="js/loading.js"></script>
+<div class="wrapper">
+	<div class="sidebar" id="sidebar">
+    	<div class="right_bar" id="r_btn">
+            <div class="s_btn">
+                <div class="t_bar" id="t_bar"></div>
+                <div class="m_bar" id="m_bar"></div>
+                <div class="b_bar" id="b_bar"></div>
+            </div>
+        </div>
+        <div class="my_picture" id="my_picture">
+        	<div class="logo" id="logo">
+            	<h1 class="front">Edward</h1>
+                <span class="back">
+                    <img src="images/edward.jpg" alt="" />
+                    <p>邵拓</p>
+                </span>
+            </div>
+            <h2>前端开发工程师</h2>
+            <h3>18513372675@163.com</h3>
+        </div>
+        <div class="menu">
+        	<ul id="m_sel">
+            	<li class="b_t">
+                	<a href="javascript:;" class="m_option">HOME</a>
+                </li>
+            	<li>
+                	<a href="javascript:;" id="work_btn" class="">MY DEMO<i class="iconfont t">&#xe611;</i></a>
+                    <ul class="work_list" id="work_list">
+                    	<li>
+                        	<i class="iconfont l">&#xe64b;</i>
+                            <a href="javascript:;" class="m_option">html/css</a>
+                        </li>
+                        <li>
+                        	<i class="iconfont l">&#xe64b;</i>
+                            <a href="javascript:;" class="m_option">Javascript</a>
+                        </li>
+                        <li>
+                        	<i class="iconfont l">&#xe64b;</i>
+                            <a href="javascript:;" class="m_option">H5/C3</a>
+                        </li>
+                    </ul>
+                </li>
+            	<li>
+                	<a href="javascript:;" class="m_option">ABOUT ME</a>
+                </li>
+            	<li>
+                	<a href="javascript:;" class="m_option">CONTACT</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="content" id="content">
+    	<div class="home" id="cont_home" style="color:rgb(255,247,0);">
+        	<div class="game_box">
+                <div class="game_fish" id="game_fish">
+                    <canvas class="c2" width=800 height=600></canvas>
+                    <script src="js/fish_index.js"></script>
+                </div>
+               <span class="movedown" id="movedown"></span>
+            </div>
+           	<div class="game_sel" id="game_sel">
+           		<ul class="clearFix">
+                	<li>
+                        <p class="game_title">捕鱼达人</p>
+                    	<a href="javascript:;">
+                            <p></p>
+                        	<img src="images/fish_pic.jpg" alt="" />
+                            <span>Js面向对象编程+H5Canvas</span>
+                        </a>
+                    </li>
+                	<li>
+                        <p class="game_title">贪吃蛇</p>
+                    	<a href="eq/snake.html"  target="_blank">
+                            <p></p>
+                            <img src="images/snake_pic.jpg" alt="" />
+                            <span>Js面向过程编</span>
+                        </a>
+                       
+                    </li>
+                	<li>
+                    	<p class="game_title">Chrome小恐龙</p>
+                    	<a href="eq/dino.html" target="_blank">
+                        	<p></p>
+                        	<img src="images/chrome_pic.jpg" alt="" />
+                            <span>Js面向对象编程+H5Canvas程</span>
+                        </a>
+                    </li>
+                </ul>
+           </div>
+        </div>
+        <div class="work" id='work_html' style="display:none;">
+        	<span class="works_info">双击小球全屏展示</span>
+        	<a href="javascrpt:;" class="all_works" title="双击全屏显示" id="ball1"></a>
+        	<div class="work_box" id="html_box">
+            	<ul>
+                	<li><a href="javascript:;"><img src="images/3.jpg" alt="" /></a></li>
+                	<li><a href="javascript:;"><img src="images/4.jpg" alt="" /></a></li>
+                	<li><a href="javascript:;"><img src="images/1.jpg" alt="" /></a></li>
+                	<li><a href="javascript:;"><img src="images/2.jpg" alt="" /></a></li>
+                	<li><a href="javascript:;"><img src="images/5.jpg" alt="" /></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="work" id='work_js' style="display:none;">
+        	<span class="works_info">双击小球全屏展示</span>
+        	<a href="javascript:;" class="all_works" title="双击全屏显示" id="ball2"></a>
+            <div class="work_box" id="js_box">
+                <ul>
+                    <li><a href="javascript:;"><img src="images/3.jpg" alt="" /></a></li>
+                    <li><a href="javascript:;"><img src="images/1.jpg" alt="" /></a></li>
+                    <li><a href="javascript:;"><img src="images/4.jpg" alt="" /></a></li>
+                    <li><a href="javascript:;"><img src="images/2.jpg" alt="" /></a></li>
+                    <li><a href="javascript:;"><img src="images/5.jpg" alt="" /></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="work" id='work_h5' style="display:none;">
+        	<span class="works_info">双击小球全屏展示</span>
+        	<a href="javascript:;" class="all_works" title="双击全屏显示" id="ball3"></a>
+            <div class="work_box" id="js_h5">
+                <ul>
+                    <li><a href="javascript:;"><img src="images/3.jpg" alt="" /></a></li>
+                    <li><a href="javascript:;"><img src="images/2.jpg" alt="" /></a></li>
+                    <li><a href="javascript:;"><img src="images/5.jpg" alt="" /></a></li>
+                    <li><a href="javascript:;"><img src="images/4.jpg" alt="" /></a></li>
+                    <li><a href="javascript:;"><img src="images/1.jpg" alt="" /></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="about_me" id="about_me" style="display:none;">
+        	<div class="mine">
+            	<h2 class="clearFix">ABOUT ME  <span>邵拓-求职前端开发工程师</span></h2>
+                <ul class="clearFix">
+                    <li>
+                        <p class="education"></p>
+                        <div>学历<span>本科</span></div>
+                    </li>
+                    <li>
+                        <p class="age"></p>
+                        <div>年龄<span>22岁</span></div>
+                    </li>
+                    <li>
+                        <p class="location"></p>
+                        <div>坐标<span>广州</span></div>
+                    </li>
+                    <li>
+                        <p class="status"></p>
+                        <div>状态<span>在读</span></div>
+                    </li>
+                </ul>
+            </div>
+            <div class="mine_info">
+            	<span class="l_t"></span>
+                <span class="r_b"></span>
+                <p>现北京工商大学大四在读，15年8月接触前端开发，并开始自学前端</p>
+                <p>爱好创造，对精美的网页尤为喜爱</p>
+                <p></p>
+                <p></p>
+            </div>
+             <div class="skill">
+                <h2>MY SKILL</h2>
+                <ul>
+                    <li>
+                    	<h5>HTML/CSS：</h5>
+                        <p>能够熟练编写语义化的HTML，模块化的CSS，实现较复杂的布局和动画，熟练hack实现兼容ie6</p>
+ 						<p>熟悉html5/css3新特性，及W3C标准，对结构、样式与行为三者分离有较好的理解</p>
+                        <p>较好的运用H5Canvas</p>
+                    </li>
+                    <li>
+                    	<h5>ECMASCRIPT(javascript)：</h5>
+                        <p> 熟练掌握原生javascript，对javascript引擎有一定了解</p>
+                        <p>熟练掌握原生DOM/BOM及事件的使用，及解决各浏览器相关兼容性问题</p>
+                    </li>
+                    <li>
+                    	<h5>Ajax/JSONP</h5>
+                        <p>熟练AJAX、JSONP框架原理及用原生js编写,运用Ajax进行同源交互，JSONP进行跨域请求</p>
+                    </li>
+                    <li>
+                    	<h5>JQuery/angularJs/seaJs</h5>
+                        <p>熟悉JQuery库的开发运用，并能用面向对象的编程方式来实现JQuery库部分功能
+ 						<p>了解seaJs进行模块化开发，了解angularJs框架</p>
+                        <p>了解grunt,gulp等代码构建工具</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="contact" id="contact"  style="display:none;">
+        	<h2>MAIL ME</h2>
+            <p>18513372675@163.com</p>
+            <h2>BUY ME</h2>
+            <p>TEL:18513372675</p>
+            <div class="feel">
+                <p>学习的乐趣源于以恒，也贵在以恒</p>
+                <p>技术的的发展日新月异，足够的学习才能保证知识的深度和广度</p>
+                <p>行路有良友，便是捷径</p>
+                <p>带上我吧，一起看更大的世界</p>
+            </div>
+            <p class="copyright">Website&nbsp;By&nbsp;邵拓</p>
+        </div>
+       	<script src="js/scroll.js"></script>
+        <script src="js/work.js"></script>
+    </div>	
+</div>
 </body>
 </html>

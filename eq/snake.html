@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<!--       /^\/^\
+         _|__|  O|
+\/     /~     \_/ \
+ \____|__________/  \
+        \_______      \
+               `\     \                 \
+                  |     |                  \
+                 /      /                    \
+                /     /                       \\
+              /      /                         \ \
+             /     /                            \  \
+           /     /             _----_            \   \
+          /     /           _-~      ~-_         |   |
+         (      (        _-~    _--_    ~-_     _/   |
+          \      ~-____-~    _-~    ~-_    ~-_-~    /
+            ~-_           _-~          ~-_       _-~   
+               ~--______-~                ~-___-~-->
+<title>EdwardQ</title>
+<style>
+	body{ background:#0f131c; }
+	*{ margin:0; padding:0; }
+	.fl{ float:left; display:inline;}
+	.clearFix:after{ content:''; display:block; clear:both; }
+	.clearFix{ zoom:1; }
+	.wraper{ min-width:1080px;}	
+	#box{ width:595px; height:510px; margin:30px auto; background:#9a9d82; position:relative; border:10px solid #4de9e6; box-shadow:0 0 10px #4de9e6; border-radius:10px;}
+	#box div{ width:17px; height:17px; box-shadow:0 0 5px #4de9e6; position:absolute;} 
+
+	#box div.b{ -webkit-transform:rotate(90deg);
+				-moz-transform:rotate(90deg);
+				-ms-transform:rotate(90deg);
+				-o-tranform:rotate(90deg);
+				transform:rotate(90deg);
+		 } 
+	#box div.l{ -webkit-transform:rotate(180deg);
+				-moz-transform:rotate(180deg);
+				-ms-transform:rotate(180deg);
+				-o-transform:rotate(180deg);
+				transform:rotate(180deg);
+		 }
+	#box div.t{ -webkit-transform:rotate(-90deg);
+				-moz-transform:rotate(-90deg);
+				-ms-transform:rotate(-90deg);
+				-o-transform:rotate(-90deg);
+				transform:rotate(-90deg);		
+		 }
+	#box div.eat{ box-shadow:0 0 10px 2px #fff469; border-radius:50%; background:url(images/eat.png) no-repeat; }
+	
+	.btn{ width:470px; margin:0 auto; height:63px; background:url(images/score.png) no-repeat; padding:0 180px; }
+	.btn a{ width:183px; height:63px; background:url(images/btn.png) no-repeat -1px; box-shadow:0 8px 10px #4de9e6; border-radius:10px; text-decoration:none; float:left; margin:0 25px; transition:.1s all ease; font:bold 25px/60px '微软雅黑'; text-align:center; color:#fff; letter-spacing:2px; }
+	.btn a.score{  box-shadow:0 5px 10px #4de9e6,inset 0 0 15px #4de9e6;  text-shadow:0 0 8px #4de9e6; }
+	.btn a:hover{ box-shadow:0 5px 10px #4de9e6,inset 0 0 15px #4de9e6;  text-shadow:0 0 8px #4de9e6; }
+	.btn a.play:active{ box-shadow:0 0px 0px #4de9e6,inset 0 0 15px #4de9e6; margin-top:5px;}
+	
+	.level{ width:calc((100% - 595px)/2 - 50px); min-width:200px; *width:200px; width:200px\0; position:absolute; top:80px; left:30px; }
+	 h3{ margin:10px 20px 10px 0; color:#fff; }
+	.level_box{ width:200px; position:relative; margin:10px 0;  height:20px;cursor:pointer;  }
+	.level_box p{ width:200px; background:#e1b000; height:3px; margin-top:12px; overflow:hidden; }
+	.level_bar{ width:25px; height:30px; background:url(images/levl2.png) no-repeat; position:absolute; top:-10px; left:0; cursor:pointer; } 
+	.e_level{  width:calc((100% - 595px)/2 - 50px); min-width:200px; *width:200px; width:200px\0; height:30px; position:absolute; top:150px; left:30px; }
+	
+	
+	.introdution{ width:210px; padding:10px; background:#fff; border-radius:10px; position:absolute; top:235px; left:10px;}
+	.introdution h2{ font-size:18px; line-height:20px; border-left:3px solid #4de9e6; margin-top:10px; padding-left:10px; }
+	.introdution p{ padding:5px 0 5px 5px; font-size:14px; margin-top:5px; border-bottom:1px dashed #ccc; }
+	p.g1{ border-bottom:none; line-height:25px; }
+	p.g2{ line-height:30px; padding:0 0 5px 5px; }
+	.guide i{ background:url(images/icon_keys.gif) no-repeat; float:left; margin:0px 5px; }
+	.guide span{ float:left; display:inline;  margin-right:20px; }
+	.guide .click{ width:20px; height:25px; background-position:0 -105px; margin-right:10px; }
+	.guide .spacing{ width:77px; height:22px; background-position:0 -332px; }
+	.guide .dir{ width:52px; height:30px; background-position:0 -628px;  }
+	.guide .w{ width:52px; height:30px; background-position:0 -588px;  }
+	
+</style>
+<script src="../js/snake.js"></script>
+</head>
+
+<body>
+<div class="wraper">
+    <div id="box" class="box"></div>
+    <div id="btn" class="btn">
+        <a href="javascript:;" class="score" id="score">00000</a>
+        <a href="javascript:;" class="play" id="play">START</a>
+    </div>
+    <div id="level" class="level clearFix">
+        <h3 class="fl">游戏难度:</h3>
+        <div class="level_box fl" id="level_box">
+            <p></p>
+            <div class="level_bar" id="level_bar"></div>
+        </div>
+    </div>
+    <div id="e_level" class="e_level clearFix">
+        <h3 class="fl">食物个数:</h3>
+        <div class="level_box fl" id="e_level_box">
+            <p></p>
+            <div class="level_bar" id="e_level_bar"></div>
+        </div>
+    </div>
+    <div class="introdution">
+    	<h2>操作指南：</h2>
+        <p class="guide g1 clearFix">
+            <i class="spacing"></i><i class="click"></i><span>开始/暂停</span>
+        </p>
+        <p class="guide g2 clearFix">
+           	<i class="w"></i><i class="dir"></i><span>上下左右</span>
+        </p>
+        <h2>游戏目标：</h2>
+        <p class="">吃掉食物</p>
+        <h2>实现原理：</h2>
+        <p class="">原生Js面向过程编程</p>
+        <h2>兼容浏览器：</h2>
+        <p class="">
+        	IE:	6+	√&nbsp;
+            FireFox	√&nbsp;
+            safari	√&nbsp;
+            chrome	√&nbsp;&nbsp;
+            opera	√
+        </p>
+    </div>
+</div>
+</body>
+</html>

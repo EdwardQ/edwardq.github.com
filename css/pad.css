@@ -1,0 +1,12 @@
+@charset "utf-8";
+
+
+@keyframes test1{
+	from{ left:0; }
+	to{ left:-320px; }	
+}
+.sidebar{ width:350px; left:-320px; animation:test1 1s ease-out 1; }
+.content{ margin-left:50px;	} 
+
+.contact{  padding-top:50px; }			
+.contact .feel{ margin-top:50px; width:450px;}	

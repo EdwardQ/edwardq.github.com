@@ -1,0 +1,10 @@
+@charset "utf-8";
+
+@keyframes side{
+	from{ transform:translate(-320px,0);}
+	to{ transform:translate(0,0); }	
+}
+
+.sidebar{ left:0; transition:.7s all ease; transform:translate(-320px,0);}
+.sidebar .right_bar{ display:none; }
+
