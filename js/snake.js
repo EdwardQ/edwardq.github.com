@@ -52,7 +52,11 @@ window.onload=function(){
 	var aSnake=[];
 	var aEat=[];
 	var bOk=false;
-	
+	var oClose=document.getElementById('close');
+	var oIntro=document.getElementById('introdution');
+	oClose.onclick=function(){
+		oIntro.style.display='none';	
+	};
 	function Game(fn){
 		//init创建snake	
 		aSnake=[];		//{c:c,r:r,div:oNew，dir:r}

@@ -65,7 +65,7 @@
 	.e_level{  width:calc((100% - 595px)/2 - 50px); min-width:200px; *width:200px; width:200px\0; height:30px; position:absolute; top:150px; left:30px; }
 	
 	
-	.introdution{ width:210px; padding:10px; background:#fff; border-radius:10px; position:absolute; top:235px; left:10px;}
+	.introdution{ width:210px; padding:10px; background:rgba(0,0,0,.5); color:#fcfcfc; border-radius:10px; position:absolute; top:235px; left:10px;}
 	.introdution h2{ font-size:18px; line-height:20px; border-left:3px solid #4de9e6; margin-top:10px; padding-left:10px; }
 	.introdution p{ padding:5px 0 5px 5px; font-size:14px; margin-top:5px; border-bottom:1px dashed #ccc; }
 	p.g1{ border-bottom:none; line-height:25px; }
@@ -76,7 +76,7 @@
 	.guide .spacing{ width:77px; height:22px; background-position:0 -332px; }
 	.guide .dir{ width:52px; height:30px; background-position:0 -628px;  }
 	.guide .w{ width:52px; height:30px; background-position:0 -588px;  }
-	
+	.introdution .close{ position:absolute; top:10px; right:10px; font-size:16px; width:20px; height:20px; text-align:center; text-decoration:none; color:#fff; border:1px dotted rgba(255,255,255,.5); }
 </style>
 <script src="../js/snake.js"></script>
 </head>
@@ -102,7 +102,8 @@
             <div class="level_bar" id="e_level_bar"></div>
         </div>
     </div>
-    <div class="introdution">
+    <div class="introdution" id="introdution">
+    	<a href="javascript:;" class="close" id="close">X</a>
     	<h2>操作指南：</h2>
         <p class="guide g1 clearFix">
             <i class="spacing"></i><i class="click"></i><span>开始/暂停</span>

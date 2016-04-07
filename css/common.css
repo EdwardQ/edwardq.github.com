@@ -156,27 +156,27 @@ span.movedown:after{ width:33px; height:32px; content:''; display:block; positio
 .game_sel ul{ padding:3% 5%;}
 .game_sel ul li{ width:30%; height:150px; transition:.8s all ease; float:left; margin-left:3%;  border-radius:10px; position:relative; }
 .game_sel ul li .game_title{ font-size:18px; color:#fff; line-height:20px; position:absolute; color:#fff;  top:-22px; }
-.game_sel ul li a{ display:block; width:100%; height:100%; position:relative; overflow:hidden; border-radius:10px;}
-.game_sel ul li a p{ width:100%; height:100%; position:absolute; top:-100%; background:rgba(51,51,51,0.5) url(../images/demo-link.png) no-repeat center 20px; border-radius:10px; 
+.game_sel ul li  .g_cont{ display:block; width:100%; height:100%; position:relative; overflow:hidden; border-radius:10px;}
+.game_sel ul li .g_cont p{ width:100%; height:100%; position:absolute; top:-100%; background:rgba(51,51,51,0.5) url(../images/demo-link.png) no-repeat center 20px; border-radius:10px; 
 	-webkit-transition:0.4s all ease; 
 	-moz-transition:0.4s all ease;
 	-ms-transition:.4s all ease;
 	transition:.4s all ease;
   }
-.game_sel ul li a:hover p{ -webkit-transform:translate(0,150px);
+.game_sel ul li .g_cont:hover p{ -webkit-transform:translate(0,150px);
 						   -moz-transform:tranlate(0,150px);
 						   -ms-transform:translate(0,150px);
 						   transform:translate(0,150px);
   }
 .game_sel ul li img{ width:100%; height:100%; }
 
-.game_sel ul li a span{ width:100%; height:50%; display:block; position:absolute; top:100%; text-align:center; color:#fff; font-weight:700; font-size:20px;
+.game_sel ul li .g_cont span{ width:100%; height:50%; display:block; position:absolute; top:100%; text-align:center; color:#fff; font-weight:700; font-size:20px;
 	-webkit-transition:0.4s all ease; 
 	-moz-transition:0.4s all ease;
 	-ms-transition:.4s all ease;
 	transition:.4s all ease;
   }
-.game_sel ul li a:hover span{ -webkit-transform:translate(0,-50px);
+.game_sel ul li .g_cont:hover span{ -webkit-transform:translate(0,-50px);
 						   -moz-transform:tranlate(0,-50px);
 						   -ms-transform:translate(0,-50px);
 						   transform:translate(0,-50px); 

@@ -177,6 +177,11 @@ document.addEventListener('DOMContentLoaded',function(){
 	var bOk=false;
 	var restart=false;
 	var HI=0;
+	var oClose=document.getElementById('close');
+	var oIntro=document.getElementById('introdution');
+	oClose.onclick=function(){
+		oIntro.style.display='none';	
+	};
 	oImg.src='images/dinosaur.png';
 	oImg.onload=function(){
 		gd.drawImage(

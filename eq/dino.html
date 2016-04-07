@@ -20,13 +20,13 @@
 	.fr{ float:right; display:inline; }
 	.clearFix:after{ content:''; display:block; clear:both; }
 	html{ width:100%; height:100%; }
-	body{ width:100%; height:100%; background:url(../images/bg.png) no-repeat 100% 100%;  font-family:'Microsoft Yahei';  }
+	body{ width:100%; height:100%; background:url(../images/bg.png) no-repeat 100% 100%;  font-family:'Microsoft Yahei';  overflow:hidden; }
 	.wrapper{ width:100%; padding-top:30px; }
 	.box{ width:600px; height:150px; margin:0 auto; border:5px solid #ccc; background:#fff; box-shadow:0 0 3px 5px #ccc; }
 	.contain{ width:44px; height:150px; overflow:hidden; }
 	canvas{ background:#fff;}
 	
-	.introdution{ width:560px; margin:50px auto; padding:20px; background:#fff; border-radius:10px; position:relative; top:1000px; animation:test .8s ease-out .5s both;}
+	.introdution{ width:560px; margin:50px auto; padding:20px; background:rgba(0,0,0,.5); color:#fcfcfc; border-radius:10px; position:relative; top:1000px; animation:test .8s ease-out .5s both;}
 	
 	.introdution h2{ font-size:18px; line-height:20px; border-left:3px solid #0C0; margin-top:10px; padding-left:10px; }
 	.introdution p{ padding:5px 10px ; font-size:16px; margin-top:5px; border-bottom:1px dashed #ccc; }
@@ -36,6 +36,7 @@
 	.guide .spacing{ width:77px; height:22px; background-position:0 -332px; }
 	.guide .up{ width:24px; height:22px; background-position:0 -428px; }
 	.guide .down{ width:24px; height:22px; background-position:0 -460px;  }
+	.introdution .close{ position:absolute; top:10px; right:10px; font-size:16px; width:20px; height:20px; text-align:center; text-decoration:none; color:#fff; border:1px dotted rgba(255,255,255,.5); }
 </style>
 <script src="../js/dino.js"></script>
 </head>
@@ -47,7 +48,8 @@
         </div>
     </div>
     </div>
-    <div class="introdution">
+    <div class="introdution" id="introdution">
+    	<a href="javascript:;" class="close" id="close">X</a>
     	<h2>操作指南：</h2>
         <p class="guide clearFix">
             <i class="spacing"></i> <i class="up"></i><span>开始/跳跃</span>

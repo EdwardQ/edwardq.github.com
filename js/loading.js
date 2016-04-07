@@ -190,7 +190,13 @@
 				if(oLoad.children.length==0)return;
 				oLoad.removeChild(oC);
 				oLoad.removeChild(oMask);
-				
+				lazyLoad();
 		},false);
+	}
+	function lazyLoad(){
+		var aImg=document.getElementsByTagName('img');
+		for(var i=0;i<aImg.length;i++){
+			aImg[i].src=aImg[i].getAttribute('_src');	
+		}		
 	}
 })(window,document);
