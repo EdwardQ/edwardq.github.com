@@ -48,12 +48,9 @@
 	}
 	var a=0,b=0;
 	var t=5;
-	var oImg=new Image();
-	oImg.src='images/bg.png';
 	if(document.documentElement.clientWidth<700){
 		var t1=setInterval(function(){
 			gd.clearRect(0,0,oC.width,oC.height);
-			gd.drawImage(oImg,0,0,oC.width,oC.height);
 			drawCircle(cx,cy,t);
 			if(t==0){
 				clearInterval(t1);	
@@ -73,7 +70,6 @@
 			'web':'images/web.png',
 			'click':'images/click.png'
 		},function(result){
-			//var aShark=[];
 			var shark=new Fish(result,7);
 			shark.y=oC.height/2;
 			shark.x=-250;
@@ -84,7 +80,6 @@
 			var count=0;
 			var t1=setInterval(function(){
 				gd.clearRect(0,0,oC.width,oC.height);
-				gd.drawImage(oImg,0,0,oC.width,oC.height);
 				drawCircle(cx,cy,t);
 				gd.shadowBlur=0;
 				

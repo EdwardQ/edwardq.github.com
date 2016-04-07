@@ -30,7 +30,7 @@ body{ font:12px; overflow:hidden; font-family:'Microsoft Yahei'; }
 body,html{ width:100%; height:100%; background:url(../images/bg.png) no-repeat; background-size:100% 100%; }
 
 .loading{ position:relative; z-index:12; }
-canvas.c1{ background:#000; postion:absolute; z-index:100; }
+canvas.c1{ postion:absolute; z-index:100; }
 .loading .mask{ position:absolute; top:0; left:0; z-index:98;}
 .loading .mask span{ position:absolute; z-index:99; background:url(../images/pc_bg.png) no-repeat;}
 
