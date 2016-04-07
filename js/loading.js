@@ -68,7 +68,8 @@
 			'shark1':'images/shark1.png',
 			'shark2':'images/shark2.png',	
 			'web':'images/web.png',
-			'click':'images/click.png'
+			'click':'images/click.png',
+			'bg':'images/bg.png'
 		},function(result){
 			var shark=new Fish(result,7);
 			shark.y=oC.height/2;
