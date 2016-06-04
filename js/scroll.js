@@ -1,36 +1,4 @@
 'use strict'
 ;(function(){
-	function scroll(boxId,sideId){
-		var oBox=document.getElementById(boxId);
-		var oSide=document.getElementById(sideId);
-		var t=0;
-		fnWheel(oBox,function(down){
-			oSide.style.transition='none';
-			if(oBox.offsetHeight<document.documentElement.clientHeight){
-				oBox.style.height=document.documentElement.clientHeight+'px';	
-			}
-			if(down){
-				t-=20;
-				if(t>0){
-					t=0;	
-				}else if(t<document.documentElement.clientHeight-oBox.offsetHeight){
-					t=document.documentElement.clientHeight-oBox.offsetHeight;	
-				}
-				oBox.style.top=t+'px';
-				oSide.style.backgroundPosition='0px '+(1200-oSide.offsetHeight)*t/(oBox.offsetHeight-document.documentElement.clientHeight)+'px';	
-			}else{
-				t+=20;
-				if(t>0){
-					t=0;	
-				}else if(t<document.documentElement.clientHeight-oBox.offsetHeight){
-					t=document.documentElement.clientHeight-oBox.offsetHeight;	
-				}
-				oBox.style.top=t+'px';
-				oSide.style.backgroundPosition='0px '+(1200-oSide.offsetHeight)*t/(oBox.offsetHeight-document.documentElement.clientHeight)+'px';
-			}
-			oSide.style.transition='.7s all ease';
-		});
-	}
-	scroll('about_me','sidebar');
-	scroll('contact','sidebar');
+	eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('f a(m,g){b 1=2.i(m);b 7=2.i(g);b t=0;p(1,f(h){7.6.k=\'w\';8(1.3<2.4.5){1.6.x=2.4.5+\'9\'}8(h){t-=j;8(t>0){t=0}c 8(t<2.4.5-1.3){t=2.4.5-1.3}1.6.e=t+\'9\';7.6.d=\'n \'+(o-7.3)*t/(1.3-2.4.5)+\'9\'}c{t+=j;8(t>0){t=0}c 8(t<2.4.5-1.3){t=2.4.5-1.3}1.6.e=t+\'9\';7.6.d=\'n \'+(o-7.3)*t/(1.3-2.4.5)+\'9\'}7.6.k=\'.v u q\'})}a(\'s\',\'l\');a(\'r\',\'l\');',34,34,'|oBox|document|offsetHeight|documentElement|clientHeight|style|oSide|if|px|scroll|var|else|backgroundPosition|top|function|sideId|down|getElementById|20|transition|sidebar|boxId|0px|1200|fnWheel|ease|contact|about_me||all|7s|none|height'.split('|'),0,{}))
 })();
