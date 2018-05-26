@@ -8,16 +8,3 @@ this is my website！
 
 
 7777
-
-
-shaotuo1
-
-shaotuo2
-
-shaotuo3
-
-shaotuo4
-
-shaotuo5
-
-shaotuo6
