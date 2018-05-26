@@ -9,9 +9,4 @@ this is my website！
 
 7777
 
-
-shaotuo
-
-shaotuo2
-
-shaotuo3
+shaotuo1
