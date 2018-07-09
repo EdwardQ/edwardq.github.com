@@ -1,0 +1,3 @@
+[submodule "test/hercules"]
+	path = test/hercules
+	url = git@gitlab.tools.vipshop.com:h5_dev/hercules.git
